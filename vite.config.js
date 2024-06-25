@@ -7,7 +7,9 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/images/logo.png',
             ],
+            output: 'public',
             refresh: true,
         }),
     ],
