@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Enums\UserRole;
+use Laravel\Fortify\Contracts\LoginResponse;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
@@ -20,7 +22,21 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                if($request->user()->role === UserRole::ADMIN->value){
+                    return redirect('/dashboard/admin');
+                }
+                if($request->user()->role === UserRole::RESIDENT->value){
+                    return redirect('/dashboard/resident');
+                }
+                if($request->user()->role === UserRole::SYNDIC->value){
+                    return redirect('/dashboard/syndic');
+                }
+                return redirect('/');
+            }
+        });
     }
 
     /**

@@ -1,1 +1,1 @@
-<img style="width: 70px;" width="70" src="{{ Vite::asset('resources/images/logo.png') }}" alt="{{ config('app.name') }} logo">
+<img style="width: 70px;" width="70" src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }} logo">
