@@ -27,7 +27,7 @@ return new class extends Migration
             $table->date('end')->nullable();
             $table->enum('status', ['PENDING', 'STARTED', 'FINISHED'])->nullable();
             $table->unsignedBigInteger('residential_buildings_id');
-
+            $table->timestamps();
             $table->index(["residential_buildings_id"], 'fk_servicing_residential_buildings1_idx');
 
 

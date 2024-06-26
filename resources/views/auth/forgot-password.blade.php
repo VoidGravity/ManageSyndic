@@ -64,7 +64,7 @@
                                             Enter your email and instructions will be sent to you!
                                         </div>
                                         @session('status')
-                                            <div class="mb-4 font-medium text-sm text-green-600">
+                                            <div class="mb-4 font-medium text-sm text-success">
                                                 {{ $value }}
                                             </div>
                                         @endsession

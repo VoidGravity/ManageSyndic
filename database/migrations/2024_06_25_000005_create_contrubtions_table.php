@@ -21,21 +21,21 @@ return new class extends Migration
             
             $table->id();
             $table->decimal('price')->nullable();
-            $table->date('data')->nullable();
+            $table->date('date')->nullable();
             $table->unsignedBigInteger('residents_id');
             $table->unsignedBigInteger('syndics_id');
+            $table->timestamps();
+            $table->index(["residents_id"], 'fk_contribution_residents1_idx');
 
-            $table->index(["residents_id"], 'fk_contrubtion_residents1_idx');
-
-            $table->index(["syndics_id"], 'fk_contrubtion_syndics1_idx');
+            $table->index(["syndics_id"], 'fk_contribution_syndics1_idx');
 
 
-            $table->foreign('residents_id', 'fk_contrubtion_residents1_idx')
+            $table->foreign('residents_id', 'fk_contribution_residents1_idx')
                 ->references('id')->on('residents')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('syndics_id', 'fk_contrubtion_syndics1_idx')
+            $table->foreign('syndics_id', 'fk_contribution_syndics1_idx')
                 ->references('id')->on('syndics')
                 ->onDelete('no action')
                 ->onUpdate('no action');

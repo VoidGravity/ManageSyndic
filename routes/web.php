@@ -3,13 +3,64 @@
 use Illuminate\Support\Facades\Route;
 use App\Enums\UserRole;
 
+/**
+ * Note: 
+ *      "all" => Get all page view ** use GET **
+ *      "create" => Get create page view ** use GET **
+ *      "save" => Save data to db ** use POST **
+ *      "edit" => Get edit page view ** use GET **
+ *      "update" => Update data in db ** use PUT **
+ *      "delete" => Delete data from db ** use GET **
+*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->prefix('dashboard')->name('dashboard')->group(function () {
     Route::middleware(['role:'.UserRole::ADMIN->value])->prefix('/admin')->name('.admin')->group(function () {
-        Route::get('/', function () {return view('dashboard.admin.home');})->name('.all');
+        Route::get('/', [App\Http\Controllers\Dashboard\Admin\DashboardController::class,'all'])->name('.all');
+        Route::prefix('/syndic')->name('.syndic')->group( function () {
+            Route::get('/', [App\Http\Controllers\Dashboard\Admin\SyndicController::class,'all'])->name('.all');
+            Route::get('/create', [App\Http\Controllers\Dashboard\Admin\SyndicController::class,'create'])->name('.create');
+            Route::post('/create', [App\Http\Controllers\Dashboard\Admin\SyndicController::class,'save'])->name('.save');
+            Route::get('/edit/{syndic:id}', [App\Http\Controllers\Dashboard\Admin\SyndicController::class,'edit'])->name('.edit');
+            Route::post('/update/{syndic:id}', [App\Http\Controllers\Dashboard\Admin\SyndicController::class,'update'])->name('.update');
+            Route::get('/delete/{syndic:id}', [App\Http\Controllers\Dashboard\Admin\SyndicController::class,'delete'])->name('.delete');
+        });
+        Route::prefix('/resident')->name('.resident')->group( function () {
+            Route::get('/', [App\Http\Controllers\Dashboard\Admin\ResidentController::class,'all'])->name('.all');
+            Route::get('/create', [App\Http\Controllers\Dashboard\Admin\ResidentController::class,'create'])->name('.create');
+            Route::post('/create', [App\Http\Controllers\Dashboard\Admin\ResidentController::class,'save'])->name('.save');
+            Route::get('/edit/{resident:id}', [App\Http\Controllers\Dashboard\Admin\ResidentController::class,'edit'])->name('.edit');
+            Route::post('/update/{resident:id}', [App\Http\Controllers\Dashboard\Admin\ResidentController::class,'update'])->name('.update');
+            Route::get('/delete/{resident:id}', [App\Http\Controllers\Dashboard\Admin\ResidentController::class,'delete'])->name('.delete');
+        });
+        Route::prefix('/building')->name('.building')->group( function () {
+            Route::get('/', [App\Http\Controllers\Dashboard\Admin\ResidentialbuildingController::class,'all'])->name('.all');
+            Route::get('/create', [App\Http\Controllers\Dashboard\Admin\ResidentialbuildingController::class,'create'])->name('.create');
+            Route::post('/create', [App\Http\Controllers\Dashboard\Admin\ResidentialbuildingController::class,'save'])->name('.save');
+            Route::get('/edit/{residentialbuilding:id}', [App\Http\Controllers\Dashboard\Admin\ResidentialbuildingController::class,'edit'])->name('.edit');
+            Route::post('/update/{residentialbuilding:id}', [App\Http\Controllers\Dashboard\Admin\ResidentialbuildingController::class,'update'])->name('.update');
+            Route::get('/delete/{residentialbuilding:id}', [App\Http\Controllers\Dashboard\Admin\ResidentialbuildingController::class,'delete'])->name('.delete');
+        });
+
+        Route::prefix('/servicing')->name('.servicing')->group( function () {
+            Route::get('/', [App\Http\Controllers\Dashboard\Admin\ServicingController::class,'all'])->name('.all');
+            Route::get('/create', [App\Http\Controllers\Dashboard\Admin\ServicingController::class,'create'])->name('.create');
+            Route::post('/create', [App\Http\Controllers\Dashboard\Admin\ServicingController::class,'save'])->name('.save');
+            Route::get('/edit/{servicing:id}', [App\Http\Controllers\Dashboard\Admin\ServicingController::class,'edit'])->name('.edit');
+            Route::post('/update/{servicing:id}', [App\Http\Controllers\Dashboard\Admin\ServicingController::class,'update'])->name('.update');
+            Route::get('/delete/{servicing:id}', [App\Http\Controllers\Dashboard\Admin\ServicingController::class,'delete'])->name('.delete');
+        });
+        
+        Route::prefix('/contribution')->name('.contribution')->group( function () {
+            Route::get('/', [App\Http\Controllers\Dashboard\Admin\ContributionController::class,'all'])->name('.all');
+            Route::get('/create', [App\Http\Controllers\Dashboard\Admin\ContributionController::class,'create'])->name('.create');
+            Route::post('/create', [App\Http\Controllers\Dashboard\Admin\ContributionController::class,'save'])->name('.save');
+            Route::get('/edit/{contrubtion:id}', [App\Http\Controllers\Dashboard\Admin\ContributionController::class,'edit'])->name('.edit');
+            Route::post('/update/{contrubtion:id}', [App\Http\Controllers\Dashboard\Admin\ContributionController::class,'update'])->name('.update');
+            Route::get('/delete/{contrubtion:id}', [App\Http\Controllers\Dashboard\Admin\ContributionController::class,'delete'])->name('.delete');
+        });
     });
     Route::middleware(['role:'.UserRole::RESIDENT->value])->prefix('/resident')->name('.resident')->group(function () {
         Route::get('/', function () {return view('dashboard');})->name('.all');

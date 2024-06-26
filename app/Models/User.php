@@ -65,4 +65,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the syndic record associated with the user.
+     */
+    public function syndic()
+    {
+        return $this->hasOne(Syndic::class);
+    }
 }

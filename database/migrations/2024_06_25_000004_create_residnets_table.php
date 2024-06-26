@@ -24,7 +24,7 @@ return new class extends Migration
             $table->decimal('monthly_contrubtion')->nullable();
             $table->string('apartment_number', 45)->nullable();
             $table->unsignedBigInteger('residential_buildings_id');
-
+            $table->timestamps();
             $table->index(["user_id"], 'fk_resident_user1_idx');
 
             $table->index(["residential_buildings_id"], 'fk_residents_residential_buildings1_idx');

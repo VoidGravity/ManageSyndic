@@ -65,7 +65,7 @@
                                     <x-validation-errors class="mb-4" />
 
                                     @session('status')
-                                        <div class="mb-4 font-medium text-sm text-green-600">
+                                        <div class="mb-4 font-medium text-sm text-success">
                                             {{ $value }}
                                         </div>
                                     @endsession

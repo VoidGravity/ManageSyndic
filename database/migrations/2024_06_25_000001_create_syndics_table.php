@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
 
             $table->index(["user_id"], 'fk_syndic_user_idx');
-
+            $table->timestamps();
 
             $table->foreign('user_id', 'fk_syndic_user_idx')
                 ->references('id')->on('users')

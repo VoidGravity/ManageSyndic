@@ -160,6 +160,31 @@
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('dashboard.admin.syndic.all') }}" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-user-2-line"></i> <span data-key="t-dashboards">Syndics</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('dashboard.admin.building.all') }}" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-building-2-line"></i> <span data-key="t-dashboards">Buildings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('dashboard.admin.resident.all') }}" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-user-2-line"></i> <span data-key="t-dashboards">Residents</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('dashboard.admin.servicing.all') }}" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-shake-hands-line"></i> <span data-key="t-dashboards">Servicings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('dashboard.admin.contribution.all') }}" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-money-dollar-circle-line"></i> <span data-key="t-dashboards">Contributions</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->
@@ -183,12 +208,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
-                                <h4 class="mb-sm-0">CRM</h4>
+                                <h4 class="mb-sm-0">{{@$pageTitle}}</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
-                                        <li class="breadcrumb-item active">{{ Auth::user()->role }}</li>
+                                        <li class="breadcrumb-item active">{{@$pageTitle}}</li>
                                     </ol>
                                 </div>
 
@@ -258,6 +283,7 @@
 
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js')}}"></script>
+    @yield('footer')
 </body>
 
 </html>

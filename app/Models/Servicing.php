@@ -9,10 +9,11 @@ class Servicing extends Model
 {
     use HasFactory;
 
+    protected $table = 'servicing';
     
     // had one residential building
-    public function residentialBuilding()
+    public function Building()
     {
-        return $this->belongsTo(ResidentialBuilding::class);
+        return $this->belongsTo(ResidentialBuilding::class, 'residential_buildings_id');
     }
 }

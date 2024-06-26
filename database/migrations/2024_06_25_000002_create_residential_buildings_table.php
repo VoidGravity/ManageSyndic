@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('number')->nullable();
             $table->string('address', 250)->nullable();
             $table->unsignedBigInteger('syndic_id');
-
+            $table->timestamps();
             $table->index(["syndic_id"], 'fk_residential_building_syndic1_idx');
 
 
