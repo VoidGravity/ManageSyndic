@@ -13,7 +13,7 @@
                         <strong>This Page depends on syndics</strong>, To be able to add a building, add a syndic first.
                     </div>
                 @endif
-                <form action="{{ route('dashboard.admin.building.save') }}" method="post">
+                <form action="{{ route('dashboard.building.save') }}" method="post">
                     @csrf
                     <x-validation-errors class="mb-4" />
 
@@ -47,7 +47,7 @@
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="iconrightInput" class="form-label">Syndic:</label>
-                                <select class="form-select mb-3" aria-label="Default select example" name="syndic">
+                                <select data-choices  class="form-select mb-3" aria-label="Default select example" name="syndic">
                                     <option selected="">Select a syndic </option>
                                     @foreach ($syndics as $syndic)
                                         <option value="

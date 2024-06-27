@@ -26,13 +26,13 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 if($request->user()->role === UserRole::ADMIN->value){
-                    return redirect('/dashboard/admin');
+                    return redirect('/dashboard');
                 }
                 if($request->user()->role === UserRole::RESIDENT->value){
-                    return redirect('/dashboard/resident');
+                    return redirect('/dashboard');
                 }
                 if($request->user()->role === UserRole::SYNDIC->value){
-                    return redirect('/dashboard/syndic');
+                    return redirect('/dashboard');
                 }
                 return redirect('/');
             }

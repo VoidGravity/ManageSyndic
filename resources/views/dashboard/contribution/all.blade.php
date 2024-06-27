@@ -1,11 +1,13 @@
-@extends('layouts.app', ['pageTitle' => 'Servicings'])
+@extends('layouts.app', ['pageTitle' => 'Contributions'])
 @section('content')
 <div class="row">
     <div class="col-xxl-12">
         <div class="card">
             <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1">List of servicings</h4>
-                <a href="{{ route('dashboard.admin.servicing.create') }}" class="btn btn-primary">Add new servicing</a>
+                <h4 class="card-title mb-0 flex-grow-1">List of contributions</h4>
+                @if (in_array(Auth::user()->role, ['SYNDIC', 'ADMIN']))
+                <a href="{{ route('dashboard.contribution.create') }}" class="btn btn-primary">Add new contribution</a>
+                @endif
             </div>
             <!-- end card header -->
             <div class="card-body">
@@ -14,60 +16,52 @@
                         <thead class="table-light">
                             <tr class="text-muted">
                                 <th scope="col">#</th>
-                                <th scope="col">type</th>
-                                <th scope="col">name</th>
-                                <th scope="col">cost</th>
-                                <th scope="col">start</th>
-                                <th scope="col">end</th>
-                                <th scope="col">status</th>
-                                <th scope="col">Building</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Resident</th>
+                                <th scope="col">Syndic</th>
+                                @if (in_array(Auth::user()->role, ['SYNDIC', 'ADMIN']))
                                 <th>Actions</th>
+                                @endif
                             </tr>
                         </thead>
 
                         <tbody>
-                            @if($servicings->isEmpty())
+                            @if($contributions->isEmpty())
                                 <tr>
                                     <td colspan="7" class="text-center">No resident found.</td>
                                 </tr>
                             @else
-                                @foreach ($servicings as $servicing)
+                                @foreach ($contributions as $contrubtion)
                                     <tr>
                                         <td>
-                                            {{ $servicing->id }}
+                                            {{ $contrubtion->id }}
                                         </td>
                                         <td>
-                                            {{ $servicing->type }}
+                                            {{ $contrubtion->price }}
                                         </td>
                                         <td>
-                                            {{ $servicing->name }}
+                                            {{ $contrubtion->date }}
                                         </td>
                                         <td>
-                                            {{ $servicing->cost }}
+                                            {{ $contrubtion->resident->user->first_name }} {{ $contrubtion->resident->user->last_name }}
                                         </td>
                                         <td>
-                                            {{ $servicing->start }}
+                                            {{ $contrubtion->syndic->user->first_name }} {{ $contrubtion->syndic->user->last_name }}
                                         </td>
-                                        <td>
-                                            {{ $servicing->end }}
-                                        </td>
-                                        <td>
-                                            {{ $servicing->status }}
-                                        </td>
-                                        <td>
-                                            {{ $servicing->Building->name }}
-                                        </td>
+                                        @if (in_array(Auth::user()->role, ['SYNDIC', 'ADMIN']))
                                         <td class="d-flex">
-                                            <a href="{{ route('dashboard.admin.servicing.edit', $servicing) }}"
+                                            <a href="{{ route('dashboard.contribution.edit', $contrubtion) }}"
                                                 class="text-body fw-medium mx-1 d-inline-block">
                                                 <span class="badge bg-success-subtle text-success p-2">Edit</span>
                                             </a>
 
-                                            <a href="{{ route('dashboard.admin.servicing.delete', $servicing) }}"
+                                            <a href="{{ route('dashboard.contribution.delete', $contrubtion) }}"
                                                 class="text-body fw-medium mx-1">
                                                 <span class="badge bg-danger-subtle text-danger p-2">Delete</span>
                                             </a>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             @endif

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
@@ -17,14 +17,14 @@ class ResidentController extends Controller
     {
         // residents
         $residents = Resident::all();
-        return view('dashboard.admin.resident.all', compact('residents'));
+        return view('dashboard.resident.all', compact('residents'));
     }
     // create
     public function create()
     {
         // buildings
         $buildings = ResidentialBuilding::all();
-        return view('dashboard.admin.resident.create', compact('buildings'));
+        return view('dashboard.resident.create', compact('buildings'));
     }
     // save
     public function save(Request $request)
@@ -60,7 +60,7 @@ class ResidentController extends Controller
         $resident->save();
 
         // redirect
-        return redirect()->route('dashboard.admin.resident.all');
+        return redirect()->route('dashboard.resident.all');
     }
 
     // edit
@@ -68,7 +68,7 @@ class ResidentController extends Controller
     {
         // buildings
         $buildings = ResidentialBuilding::all();
-        return view('dashboard.admin.resident.edit', compact('resident','buildings'));
+        return view('dashboard.resident.edit', compact('resident','buildings'));
     }
 
     // update
@@ -111,7 +111,7 @@ class ResidentController extends Controller
         $resident->monthly_contrubtion = $request->monthly_contrubtion;
         $resident->save();
         // redirect
-        return redirect()->route('dashboard.admin.resident.all');
+        return redirect()->route('dashboard.resident.all');
     }
 
     // delete
@@ -120,6 +120,6 @@ class ResidentController extends Controller
         $userId = $resident->user_id;
         $resident->delete();
         User::destroy($userId);
-        return redirect()->route('dashboard.admin.resident.all');
+        return redirect()->route('dashboard.resident.all');
     }
 }

@@ -8,7 +8,7 @@
             </div>
             <!-- end card header -->
             <div class="card-body">
-                <form action="{{ route('dashboard.admin.servicing.update', $servicing) }}" method="post">
+                <form action="{{ route('dashboard.servicing.update', $servicing) }}" method="post">
                     @csrf
                     <x-validation-errors class="mb-4" />
 
@@ -35,14 +35,14 @@
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="start" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="start" name="start" required
+                                <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="start" name="start" required
                                     value="{{ old('start', $servicing->start) }}">
                             </div>
                         </div>
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="end" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="end" name="end" required
+                                <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="end" name="end" required
                                     value="{{ old('end', $servicing->end) }}">
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                         <div class="col-lg-3">
                             <div>
                                 <label for="status" class="form-label">Status</label>
-                                <select class="form-select mb-3" aria-label="Default select example" name="status"
+                                <select data-choices  class="form-select mb-3" aria-label="Default select example" name="status"
                                     required value="{{ old('status', $servicing->status) }}">
                                     <option selected="">Select a status</option>
                                     <option value="PENDING" {{ $servicing->status == 'PENDING' ? 'selected' : '' }}>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-lg-3">
                             <label for="end" class="form-label">Building</label>
-                            <select class="form-select mb-3" aria-label="Default select example" name="building"
+                            <select data-choices  class="form-select mb-3" aria-label="Default select example" name="building"
                                 required value="{{ old('building', $servicing->building_id) }}">
                                 <option selected="">Select a building</option>
                                 @foreach ($buildings as $building)

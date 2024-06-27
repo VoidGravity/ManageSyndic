@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">List of syndics</h4>
-                <a href="{{ route('dashboard.admin.syndic.create') }}" class="btn btn-primary">Add new syndic</a>
+                <a href="{{ route('dashboard.syndic.create') }}" class="btn btn-primary">Add new syndic</a>
             </div>
             <!-- end card header -->
             <div class="card-body">
@@ -46,12 +46,12 @@
                                             <a href="mailto:{{ $syndic->user->email }}">{{ $syndic->user->email }}</a>
                                         </td>
                                         <td class="d-flex">
-                                            <a href="{{ route('dashboard.admin.syndic.edit', $syndic) }}"
+                                            <a href="{{ route('dashboard.syndic.edit', $syndic) }}"
                                                 class="text-body fw-medium mx-1 d-inline-block">
                                                 <span class="badge bg-success-subtle text-success p-2">Edit</span>
                                             </a>
 
-                                            <a href="{{ route('dashboard.admin.syndic.delete', $syndic) }}"
+                                            <a href="{{ route('dashboard.syndic.delete', $syndic) }}"
                                                 class="text-body fw-medium mx-1">
                                                 <span class="badge bg-danger-subtle text-danger p-2">Delete</span>
                                             </a>

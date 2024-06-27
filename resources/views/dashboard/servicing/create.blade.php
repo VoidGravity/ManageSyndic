@@ -13,7 +13,7 @@
                         <strong>This Page depends on buildings</strong>, To be able to add a servicing, add a building first.
                     </div>
                 @endif
-                <form action="{{ route('dashboard.admin.servicing.save') }}" method="post">
+                <form action="{{ route('dashboard.servicing.save') }}" method="post">
                     @csrf
                     <x-validation-errors class="mb-4" />
 
@@ -38,13 +38,13 @@
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="start" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="start" name="start" required>
+                                <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="start" name="start" required>
                             </div>
                         </div>
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="end" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="end" name="end" required>
+                                <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="end" name="end" required>
                             </div>
                         </div>
                         <div class="col-xxl-3 col-md-6">
@@ -56,7 +56,7 @@
                         <div class="col-lg-3">
                             <div>
                                 <label for="status" class="form-label">Status</label>
-                                <select class="form-select mb-3" aria-label="Default select example" name="status" required>
+                                <select data-choices  class="form-select mb-3" aria-label="Default select example" name="status" required>
                                 <option selected="">Select a status</option>
                                 <option value="PENDING">PENDING</option>
                                 <option value="STARTED">STARTED</option>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-lg-3">
                             <label for="end" class="form-label">Building</label>
-                            <select class="form-select mb-3" aria-label="Default select example" name="building" required>
+                            <select data-choices  class="form-select mb-3" aria-label="Default select example" name="building" required>
                                 <option selected="">Select a building</option>
                                 @foreach ($buildings as $building)
                                     <option value="{{ $building->id }}">{{ $building->id }} - {{ $building->name }} ({{$building->number}})</option>

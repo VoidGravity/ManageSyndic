@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
@@ -18,13 +18,13 @@ class ResidentialbuildingController extends Controller
         // buildings
         $buildings = ResidentialBuilding::all();
         
-        return view('dashboard.admin.building.all', compact('buildings'));
+        return view('dashboard.building.all', compact('buildings'));
     }
     // create
     public function create()
     {
         $syndics = Syndic::all();
-        return view('dashboard.admin.building.create', compact('syndics'));
+        return view('dashboard.building.create', compact('syndics'));
     }
     // save
     public function save(Request $request)
@@ -45,7 +45,7 @@ class ResidentialbuildingController extends Controller
         $building->syndic_id = $request->syndic;
         $building->save();
         // redirect
-        return redirect()->route('dashboard.admin.building.all');
+        return redirect()->route('dashboard.building.all');
     }
 
     // edit
@@ -53,7 +53,7 @@ class ResidentialbuildingController extends Controller
     {
         $building = ResidentialBuilding::find($building);
         $syndics = Syndic::all();
-        return view('dashboard.admin.building.edit', compact('building','syndics'));
+        return view('dashboard.building.edit', compact('building','syndics'));
     }
 
     // update
@@ -76,7 +76,7 @@ class ResidentialbuildingController extends Controller
         $building->save();
 
         // redirect
-        return redirect()->route('dashboard.admin.building.all');
+        return redirect()->route('dashboard.building.all');
     }
 
     // delete
@@ -84,7 +84,7 @@ class ResidentialbuildingController extends Controller
     {
         $building = ResidentialBuilding::find($building);
         $building->delete();
-        return redirect()->route('dashboard.admin.building.all');
+        return redirect()->route('dashboard.building.all');
     }
     
 }

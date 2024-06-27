@@ -633,7 +633,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="auth-signin-cover.html" class="nav-link" data-key="t-cover"> Cover
+                                                    <a href="{{route('login')}}" class="nav-link" data-key="t-cover"> Cover
                                                     </a>
                                                 </li>
                                             </ul>

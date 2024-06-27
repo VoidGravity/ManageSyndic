@@ -8,7 +8,7 @@
             </div>
             <!-- end card header -->
             <div class="card-body">
-                <form action="{{ route('dashboard.admin.building.update', $building) }}" method="POST">
+                <form action="{{ route('dashboard.building.update', $building) }}" method="POST">
                 @csrf
                     <x-validation-errors class="mb-4" />
 
@@ -42,7 +42,7 @@
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="iconrightInput" class="form-label">Syndic:</label>
-                                <select class="form-select mb-3" aria-label="Default select example" name="syndic" value="{{ old('syndic', $building->syndic_id) }}">
+                                <select data-choices  class="form-select mb-3" aria-label="Default select example" name="syndic" value="{{ old('syndic', $building->syndic_id) }}">
                                     <option selected="">Select a syndic </option>
                                     @foreach ($syndics as $syndic)
                                     <option value="{{$syndic->id}}"

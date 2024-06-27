@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contrubtion;
@@ -15,37 +15,39 @@ class ContributionController extends Controller
     {
         // buildings
         $contributions = Contrubtion::with('resident','syndic')->get();  
-        return view('dashboard.admin.contribution.all', compact('contributions'));
+        return view('dashboard.contribution.all', compact('contributions'));
     }
     // create
     public function create()
     {
         // residents
-        $residents = Resident::all();
+        $residents = Resident::with('user')->get();
         // syndics
-        $syndics = Syndic::all();
-        return view('dashboard.admin.contribution.create', compact('residents','syndics'));
+        $syndics = Syndic::with('user')->get();
+        return view('dashboard.contribution.create', compact('residents','syndics'));
     }
     // save
     public function save(Request $request)
     {
         // validate
         $request->validate([
-            'price' => 'required|numeric',
-            'date' => 'required|date',
-            'resident' => 'required|exists:residents,id',
-            'syndic' => 'required|exists:syndics,id'
+            'price.*' => 'required|numeric',
+            'date.*' => 'required|date',
+            'resident.*' => 'required|exists:residents,id',
+            'syndic.*' => 'required|exists:syndics,id'
         ]);
-
-        // create
-        $contribution = new Contrubtion();
-        $contribution->price = $request->price;
-        $contribution->date = $request->date;
-        $contribution->residents_id = $request->resident;
-        $contribution->syndics_id = $request->syndic;
-        $contribution->save();
         
-        return redirect()->route('dashboard.admin.contribution.all');
+        foreach($request->price as $key => $price){
+            // create
+            $contribution = new Contrubtion();
+            $contribution->price = $price;
+            $contribution->date = $request->date[$key];
+            $contribution->residents_id = $request->resident[$key];
+            $contribution->syndics_id = $request->syndic[$key];
+            $contribution->save();
+        }
+        
+        return redirect()->route('dashboard.contribution.all');
     }
 
     // edit
@@ -55,7 +57,7 @@ class ContributionController extends Controller
         $residents = Resident::all();
         // syndics
         $syndics = Syndic::all();
-        return view('dashboard.admin.contribution.edit', compact('syndics','residents','contrubtion'));
+        return view('dashboard.contribution.edit', compact('syndics','residents','contrubtion'));
     }
 
     // update
@@ -77,13 +79,13 @@ class ContributionController extends Controller
         $contrubtion->save();
 
         // redirect
-        return redirect()->route('dashboard.admin.contribution.all');
+        return redirect()->route('dashboard.contribution.all');
     }
 
     // delete
     public function delete(Request $request,Contrubtion $contrubtion)
     {
         $contrubtion->delete();
-        return redirect()->route('dashboard.admin.contribution.all');
+        return redirect()->route('dashboard.contribution.all');
     }
 }

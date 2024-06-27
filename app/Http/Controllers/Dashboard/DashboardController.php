@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contrubtion;
@@ -39,6 +39,6 @@ class DashboardController extends Controller
         // servicing price total
         $servicingPriceTotal = Servicing::sum('cost');
 
-        return view('dashboard.admin.home', compact('residentialBuildings', 'residents', 'syndics', 'contributions', 'servicings', 'contributionPriceTotal', 'servicingPriceTotal', 'contributionPriceTotalForMonth', 'servicingPriceTotalForMonth'));
+        return view('dashboard.home', compact('residentialBuildings', 'residents', 'syndics', 'contributions', 'servicings', 'contributionPriceTotal', 'servicingPriceTotal', 'contributionPriceTotalForMonth', 'servicingPriceTotalForMonth'));
     }
 }

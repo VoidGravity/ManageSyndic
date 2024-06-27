@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\ResidentialBuilding;
@@ -14,13 +14,13 @@ class ServicingController extends Controller
     {
         // buildings
         $servicings = Servicing::with('Building')->get();        
-        return view('dashboard.admin.servicing.all', compact('servicings'));
+        return view('dashboard.servicing.all', compact('servicings'));
     }
     // create
     public function create()
     {
         $buildings = ResidentialBuilding::all();
-        return view('dashboard.admin.servicing.create', compact('buildings'));
+        return view('dashboard.servicing.create', compact('buildings'));
     }
     // save
     public function save(Request $request)
@@ -47,14 +47,14 @@ class ServicingController extends Controller
         $servicing->residential_buildings_id = $request->building;
         $servicing->save();
 
-        return redirect()->route('dashboard.admin.servicing.all');
+        return redirect()->route('dashboard.servicing.all');
     }
 
     // edit
     public function edit(Request $request,Servicing $servicing)
     {
         $buildings = ResidentialBuilding::all();
-        return view('dashboard.admin.servicing.edit', compact('buildings','servicing'));
+        return view('dashboard.servicing.edit', compact('buildings','servicing'));
     }
 
     // update
@@ -82,13 +82,13 @@ class ServicingController extends Controller
         $servicing->save();
 
         // redirect
-        return redirect()->route('dashboard.admin.servicing.all');
+        return redirect()->route('dashboard.servicing.all');
     }
 
     // delete
     public function delete(Request $request,Servicing $servicing)
     {
         $servicing->delete();
-        return redirect()->route('dashboard.admin.servicing.all');
+        return redirect()->route('dashboard.servicing.all');
     }
 }

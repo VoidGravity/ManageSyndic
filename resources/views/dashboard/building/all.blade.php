@@ -1,11 +1,11 @@
-@extends('layouts.app', ['pageTitle' => 'Contributions'])
+@extends('layouts.app', ['pageTitle' => 'buildings'])
 @section('content')
 <div class="row">
     <div class="col-xxl-12">
         <div class="card">
             <div class="card-header align-items-center d-flex">
-                <h4 class="card-title mb-0 flex-grow-1">List of contributions</h4>
-                <a href="{{ route('dashboard.admin.contribution.create') }}" class="btn btn-primary">Add new contribution</a>
+                <h4 class="card-title mb-0 flex-grow-1">List of buildings</h4>
+                <a href="{{ route('dashboard.building.create') }}" class="btn btn-primary">Add new building</a>
             </div>
             <!-- end card header -->
             <div class="card-body">
@@ -14,44 +14,45 @@
                         <thead class="table-light">
                             <tr class="text-muted">
                                 <th scope="col">#</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Resident</th>
-                                <th scope="col">Syndic</th>
+                                <th scope="col">name</th>
+                                <th scope="col">number</th>
+                                <th scope="col">address</th>
+                                <th scope="col">syndic</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @if($contributions->isEmpty())
+                            @if($buildings->isEmpty())
                                 <tr>
-                                    <td colspan="7" class="text-center">No resident found.</td>
+                                    <td colspan="7" class="text-center">No building found.</td>
                                 </tr>
                             @else
-                                @foreach ($contributions as $contrubtion)
+                                @foreach ($buildings as $building)
                                     <tr>
                                         <td>
-                                            {{ $contrubtion->id }}
+                                            {{ $building->id }}
                                         </td>
                                         <td>
-                                            {{ $contrubtion->price }}
+                                            {{ $building->name }}
                                         </td>
                                         <td>
-                                            {{ $contrubtion->date }}
+                                            {{ $building->number }}
                                         </td>
                                         <td>
-                                            {{ $contrubtion->resident->user->first_name }} {{ $contrubtion->resident->user->last_name }}
+                                            {{ $building->address }}
                                         </td>
                                         <td>
-                                            {{ $contrubtion->syndic->user->first_name }} {{ $contrubtion->syndic->user->last_name }}
+                                        {{ $building->syndic->user->first_name}}
+                                        {{ $building->syndic->user->last_name}}
                                         </td>
                                         <td class="d-flex">
-                                            <a href="{{ route('dashboard.admin.contribution.edit', $contrubtion) }}"
+                                            <a href="{{ route('dashboard.building.edit', $building) }}"
                                                 class="text-body fw-medium mx-1 d-inline-block">
                                                 <span class="badge bg-success-subtle text-success p-2">Edit</span>
                                             </a>
 
-                                            <a href="{{ route('dashboard.admin.contribution.delete', $contrubtion) }}"
+                                            <a href="{{ route('dashboard.building.delete', $building) }}"
                                                 class="text-body fw-medium mx-1">
                                                 <span class="badge bg-danger-subtle text-danger p-2">Delete</span>
                                             </a>

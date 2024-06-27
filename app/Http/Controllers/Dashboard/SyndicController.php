@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
@@ -16,12 +16,12 @@ class SyndicController extends Controller
     {
         // syndics
         $syndics = Syndic::all();
-        return view('dashboard.admin.syndic.all', compact('syndics'));
+        return view('dashboard.syndic.all', compact('syndics'));
     }
     // create
     public function create()
     {
-        return view('dashboard.admin.syndic.create');
+        return view('dashboard.syndic.create');
     }
     // save
     public function save(Request $request)
@@ -51,13 +51,13 @@ class SyndicController extends Controller
         $syndic->save();
 
         // redirect
-        return redirect()->route('dashboard.admin.syndic.all');
+        return redirect()->route('dashboard.syndic.all');
     }
 
     // edit
     public function edit(Request $request,Syndic $syndic)
     {
-        return view('dashboard.admin.syndic.edit', compact('syndic'));
+        return view('dashboard.syndic.edit', compact('syndic'));
     }
 
     // update
@@ -92,7 +92,7 @@ class SyndicController extends Controller
         $user->save();
 
         // redirect
-        return redirect()->route('dashboard.admin.syndic.all');
+        return redirect()->route('dashboard.syndic.all');
     }
 
     // delete
@@ -101,6 +101,6 @@ class SyndicController extends Controller
         $userId = $syndic->user_id;
         $syndic->delete();
         User::destroy($userId);
-        return redirect()->route('dashboard.admin.syndic.all');
+        return redirect()->route('dashboard.syndic.all');
     }
 }
