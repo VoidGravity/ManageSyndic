@@ -1,21 +1,25 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
-import Header from "./components/Header";
-import Login from "./screens/Login";
+import { NavigationContainer } from "@react-navigation/native";
+import DrawerNavigation from "./components/DrawerNavigation";
+import { View } from "react-native";
+import { Colors } from "@/constants/Colors";
 
-const App = () => {
+const index = () => {
   return (
     <View style={styles.app}>
-      <Login />
+      <NavigationContainer independent={true}>
+        <DrawerNavigation />
+      </NavigationContainer>
     </View>
   );
 };
 
-const styles = {
+const styles:any = {
   app: {
-    backgroundColor: "#000",
-    width: "100%",
+    backgroundColor: Colors.bodyBg,
+    color: Colors.bodyColor,
+    with: "100%",
     height: "100%",
   },
 };
-export default App;
+export default index;
