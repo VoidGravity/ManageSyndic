@@ -38,13 +38,13 @@
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="start" class="form-label">Start Date</label>
-                                <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="start" name="start" required>
+                                <input type="date" data-provider="flatpickr" data-date-format="y-m-d" class="form-control" id="start" name="start" required>
                             </div>
                         </div>
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="end" class="form-label">End Date</label>
-                                <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="end" name="end" required>
+                                <input type="date" data-provider="flatpickr" data-date-format="y-m-d" class="form-control" id="end" name="end" required>
                             </div>
                         </div>
                         <div class="col-xxl-3 col-md-6">

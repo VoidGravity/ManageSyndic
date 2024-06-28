@@ -36,16 +36,13 @@
                                                 </div>
                                                 <div class="carousel-inner text-center text-white pb-5">
                                                     <div class="carousel-item active">
-                                                        <p class="fs-15 fst-italic">" Great! Clean code, clean design,
-                                                            easy for customization. Thanks very much! "</p>
+                                                        <p class="fs-15 fst-italic">"Fantastic app! Manage Syndic excels in every aspect. The code is clean, the design is elegant, and customization is a breeze. It has significantly improved our property management process. Thanks very much!"</p>
                                                     </div>
                                                     <div class="carousel-item">
-                                                        <p class="fs-15 fst-italic">" The theme is really great with an
-                                                            amazing customer support."</p>
+                                                        <p class="fs-15 fst-italic">"Manage Syndic is a game-changer! The app's clean code ensures smooth performance, while its modern design enhances usability. Customizing it to fit our specific property management needs has been a breeze. Highly impressed and grateful for such a valuable tool!"</p>
                                                     </div>
                                                     <div class="carousel-item">
-                                                        <p class="fs-15 fst-italic">" Great! Clean code, clean design,
-                                                            easy for customization. Thanks very much! "</p>
+                                                        <p class="fs-15 fst-italic">"Absolutely fantastic! Manage Syndic exceeds expectations with its clean, efficient code and intuitive interface. It's incredibly versatile, allowing us to tailor it precisely to our property management workflows. This app has significantly improved our efficiency and organization. A big thank you to the developers for creating such a valuable tool!"</p>
                                                     </div>
                                                 </div>
                                             </div>

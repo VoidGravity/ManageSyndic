@@ -8,6 +8,7 @@ use App\Models\Syndic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class SyndicController extends Controller
 {
@@ -49,6 +50,17 @@ class SyndicController extends Controller
         $syndic = new Syndic();
         $syndic->user_id = $user->id;
         $syndic->save();
+        // sending an email to the user that has the password
+
+        $userPassword = $request->password;
+        $userEmail = $request->email;
+        $userName = $request->username;
+        $userFullName = $request->first_name . ' ' . $request->last_name;
+        // html then sending that in gmail
+        Mail::send('emails.login-credentials', ['userFullName' => $userFullName, 'userEmail' => $userEmail, 'userPassword' => $userPassword], function ($message) use ($userEmail) {
+            $message->to($userEmail);
+            $message->subject('Login Credentials');
+        });
 
         // redirect
         return redirect()->route('dashboard.syndic.all');

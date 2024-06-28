@@ -37,13 +37,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         
         Route::get('/', [App\Http\Controllers\Dashboard\ResidentController::class, 'all'])->name('.all');
 
-        Route::middleware(['role:' . UserRole::ADMIN->value])->group(function () {
+        // Route::middleware(['role:' . UserRole::ADMIN->value])->group(function () {
             Route::get('/create', [App\Http\Controllers\Dashboard\ResidentController::class, 'create'])->name('.create');
             Route::post('/create', [App\Http\Controllers\Dashboard\ResidentController::class, 'save'])->name('.save');
             Route::get('/edit/{resident:id}', [App\Http\Controllers\Dashboard\ResidentController::class, 'edit'])->name('.edit');
             Route::post('/update/{resident:id}', [App\Http\Controllers\Dashboard\ResidentController::class, 'update'])->name('.update');
             Route::get('/delete/{resident:id}', [App\Http\Controllers\Dashboard\ResidentController::class, 'delete'])->name('.delete');
-        });
+        // });
 
     });
 
@@ -77,11 +77,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/', [App\Http\Controllers\Dashboard\ContributionController::class, 'all'])->name('.all');
 
         Route::middleware(['role:' . UserRole::ADMIN->value . ',' . UserRole::SYNDIC->value])->group(function () {
+            //
             Route::get('/create', [App\Http\Controllers\Dashboard\ContributionController::class, 'create'])->name('.create');
             Route::post('/create', [App\Http\Controllers\Dashboard\ContributionController::class, 'save'])->name('.save');
             Route::get('/edit/{contrubtion:id}', [App\Http\Controllers\Dashboard\ContributionController::class, 'edit'])->name('.edit');
             Route::post('/update/{contrubtion:id}', [App\Http\Controllers\Dashboard\ContributionController::class, 'update'])->name('.update');
             Route::get('/delete/{contrubtion:id}', [App\Http\Controllers\Dashboard\ContributionController::class, 'delete'])->name('.delete');
+            Route::get('/exportPDF/{id}', [App\Http\Controllers\Dashboard\ContributionController::class, 'exportPDF'])->name('.exportPDF');
+
         });
         
     });

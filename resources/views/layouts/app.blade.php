@@ -80,12 +80,17 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <h6 class="dropdown-header">Welcome {{ Auth::user()->username }}!</h6>
+                                
+
+                                {{-- jetstreame profile code with 2Fa , disabled for adding unecessary complexity --}}
+
+
+                                {{-- <h6 class="dropdown-header">Welcome {{ Auth::user()->username }}!</h6>
                                 <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                     <a class="dropdown-item" href="{{ route('api-tokens.index') }}"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
                                 @endif
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> --}}
                                 <form method="POST" action="{{ route('logout') }}" x-data>
                                     @csrf
                                     <button class="dropdown-item" type="submit"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></button>
@@ -140,7 +145,7 @@
                         <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="17">
+                        <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="100">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">

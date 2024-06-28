@@ -13,7 +13,24 @@ class ServicingController extends Controller
     public function all()
     {
         // buildings
-        $servicings = Servicing::with('Building')->get();        
+        // checking the auth user role 
+        $role = auth()->user()->role;
+        $building = ResidentialBuilding::where('syndic_id',auth()->user()->id)->first();
+        // if building exist 
+        if ($building) {
+        $building_id = $building->id;
+        } else {
+            $building_id = 0;
+        }
+        if ($role == 'ADMIN') {
+
+        $servicings = Servicing::with('Building')->get(); 
+        // find resedential building id with same cyndik id
+    }else{
+            // only bring the building that has sam ecyndic id 
+            $servicings = Servicing::with('Building')->where('residential_buildings_id',$building_id)->get();
+
+        }       
         return view('dashboard.servicing.all', compact('servicings'));
     }
     // create
@@ -54,6 +71,15 @@ class ServicingController extends Controller
     public function edit(Request $request,Servicing $servicing)
     {
         $buildings = ResidentialBuilding::all();
+        // role 
+        $role = auth()->user()->role;
+        if ($role == 'ADMIN') {
+            $buildings = ResidentialBuilding::all();
+        }else{
+            $building = ResidentialBuilding::where('syndic_id',auth()->user()->id)->first();
+            $buildings = ResidentialBuilding::where('id',$building->id)->get();
+        }
+
         return view('dashboard.servicing.edit', compact('buildings','servicing'));
     }
 

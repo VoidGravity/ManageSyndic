@@ -14,7 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'role' => RoleMiddleware::class
+            'role' => RoleMiddleware::class,
+            // 'PDF' => Spatie\Pdf\Pdf::class,
+
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

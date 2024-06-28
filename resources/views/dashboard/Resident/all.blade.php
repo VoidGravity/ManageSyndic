@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">List of residents</h4>
-                    @if (in_array(Auth::user()->role, ['ADMIN']))
+                    @if (in_array(Auth::user()->role, ['ADMIN', 'SYNDIC']))
                         <a href="{{ route('dashboard.resident.create') }}" class="btn btn-primary">Add new resident</a>
                     @endif
                 </div>
@@ -23,7 +23,7 @@
                                     <th scope="col">Apartment number</th>
                                     <th scope="col">Monthly contrubtion</th>
                                     <th scope="col">Buildings</th>
-                                    @if (in_array(Auth::user()->role, ['ADMIN']))
+                                    @if (in_array(Auth::user()->role, ['ADMIN','SYNDIC']))
                                         <th>Actions</th>
                                     @endif
                                 </tr>
@@ -61,7 +61,7 @@
                                             <td>
                                                 {{ $resident->building->name }} (N°{{ $resident->building->number }})
                                             </td>
-                                            @if (in_array(Auth::user()->role, ['ADMIN']))
+                                            @if (in_array(Auth::user()->role, ['ADMIN','SYNDIC']))
                                                 <td class="d-flex">
                                                     <a href="{{ route('dashboard.resident.edit', $resident) }}" class="text-body fw-medium mx-1 d-inline-block">
                                                         <span class="badge bg-success-subtle text-success p-2">Edit</span>

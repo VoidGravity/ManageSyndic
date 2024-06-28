@@ -38,7 +38,8 @@
                 <a class="navbar-brand" href="index.html">
                     <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="17">
                     <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
-                        height="17">
+                        {{-- height="60"> --}}
+                        height="60">
                 </a>
                 <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -123,7 +124,7 @@
                     <div class="col-lg-12 text-center mt-4">
                         <div>
                             <div>
-                                <img src="assets/images/logo.png" alt="logo light" height="70">
+                                <img src="assets/images/logo-light.png" alt="logo light" height="100">
                             </div>
                             <div class="mt-4 fs-15">
                                 <p>The ultimate solution for modern property management.</p>

@@ -32,7 +32,7 @@
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label for="date" class="form-label">Date</label>
-                                <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="date" name="date" required value="{{ old('date', $contrubtion->date) }}">
+                                <input type="date" data-provider="flatpickr" data-date-format="y-m-d" class="form-control" id="date" name="date" required value="{{ old('date', $contrubtion->date) }}">
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -49,7 +49,7 @@
                             <select data-choices  class="form-select mb-3" aria-label="Default select example" name="syndic" required value="{{ old('syndic', $contrubtion->syndic->id) }}">
                                 <option selected="">Select a syndic</option>
                                 @foreach ($syndics as $syndic)
-                                    <option value="{{ $syndic->id }}" @if($syndic->id == old('syndic', $contrubtion->syndic->id)) selected @endif>{{ $syndic->id }} - {{ $syndic->user->first_name }} {{$syndic->user->last_name }} (B:{{$syndic->building->name}} N°{{$syndic->building->number}})</option>
+                                    <option value="{{ $syndic->id }}" @if($syndic->id == old('syndic', $contrubtion->syndic->id)) selected @endif>{{ $syndic->id }} - {{ $syndic->user->first_name }} {{$syndic->user->last_name }}</option>
                                 @endforeach
                             </select>
                         </div>

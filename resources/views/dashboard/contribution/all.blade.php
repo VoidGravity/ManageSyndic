@@ -51,6 +51,11 @@
                                         </td>
                                         @if (in_array(Auth::user()->role, ['SYNDIC', 'ADMIN']))
                                         <td class="d-flex">
+                                            <a href="{{ route('dashboard.contribution.exportPDF', $contrubtion) }}" class="text-body fw-medium mx-1 d-inline-block">
+                                                <span class="badge bg-success-subtle text-success p-2">
+                                                    <i class="ri-share-line"></i>
+                                                    Export</span>
+                                            </a>
                                             <a href="{{ route('dashboard.contribution.edit', $contrubtion) }}"
                                                 class="text-body fw-medium mx-1 d-inline-block">
                                                 <span class="badge bg-success-subtle text-success p-2">Edit</span>

@@ -43,67 +43,83 @@
         </div>
     </div>
     <script>
-        var bulkCounter = 1;
+        document.addEventListener('DOMContentLoaded', function() {
+    var bulkCounter = 0;
 
-        function addBulkForm(counter) {
-            const bulkWrapper = document.getElementById('bulk-wrapper');
+    function initializePlugins(counter) {
+        // Initialize 'choices' for select elements
+        new Choices(document.getElementById(`resident-${counter}`));
+        new Choices(document.getElementById(`syndic-${counter}`));
 
-            const residents = {!! $residents !!};
-            const syndics = {!! $syndics !!};
-
-            const bulkForm = `<div class="row gy-4 mb-4" id="bulk-row-${counter}">
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
-                                        <label for="resident-${counter}" class="form-label">Resident</label>
-                                        <select data-choices  class="form-select" id="resident-${counter}" name="resident[]">
-                                            <option value="">Select resident</option>
-                                            ${residents.map(resident => `<option value="${resident.id}" data-monthly_contrubtion="${resident.monthly_contrubtion}">${resident.user.first_name} ${resident.user.last_name}</option>`)}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
-                                        <label for="syndic-${counter}" class="form-label">Syndic</label>
-                                        <select data-choices  class="form-select" id="syndic-${counter}" name="syndic[]">
-                                            <option value="">Select syndic</option>
-                                            ${syndics.map(syndic => `<option value="${syndic.id}">${syndic.user.first_name} ${syndic.user.last_name}</option>`)}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
-                                        <label for="price-${counter}" class="form-label">Price</label>
-                                        <input type="text" class="form-control" id="price-${counter}" name="price[]" value="{{ old('price') }}"
-                                            placeholder="Price">
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
-                                        <label for="date-${counter}" class="form-label">Date</label>
-                                        <input type="date" data-provider="flatpickr" data-date-format="d M, Y" class="form-control" id="date-${counter}" name="date[]" value="{{ old('date') }}"
-                                            placeholder="Date">
-                                    </div>
-                                </div>
-                            </div>`;
-
-            bulkWrapper.innerHTML += bulkForm;
-
-            const residentInp = document.getElementById('resident-' + counter);
-            const priceInp = document.getElementById('price-' + counter);
-            residentInp.addEventListener('change', (e) => {
-                residents.find(resident => {
-                    if (resident.id == e.target.value) {
-                        priceInp.value = resident.monthly_contrubtion;
-                    }
-                });
-            });
-        }
-
-        addBulkForm(bulkCounter);
-        // Bulk form
-        const bulkBtn = document.getElementById('bulk-btn');
-        bulkBtn.addEventListener('click', (e) => {
-            addBulkForm(++bulkCounter);
+        // Initialize 'flatpickr' for date input
+        flatpickr(document.getElementById(`date-${counter}`), {
+            dateFormat: "Y-m-d"
         });
+
+        // Add event listener for resident select
+        const residentInp = document.getElementById('resident-' + counter);
+        const priceInp = document.getElementById('price-' + counter);
+        residentInp.addEventListener('change', (e) => {
+            residents.find(resident => {
+                if (resident.id == e.target.value) {
+                    priceInp.value = resident.monthly_contrubtion;
+                }
+            });
+        });
+    }
+
+    function addBulkForm(counter) {
+        const bulkWrapper = document.getElementById('bulk-wrapper');
+
+        const residents = {!! $residents !!};
+        const syndics = {!! $syndics !!};
+
+        const bulkForm = `<div class="row gy-4 mb-4" id="bulk-row-${counter}">
+    <div class="col-xxl-3 col-md-6">
+        <div>
+            <label for="resident-${counter}" class="form-label">Resident</label>
+            <select data-choices class="form-select" id="resident-${counter}" name="resident[]">
+                <option value="">Select resident</option>
+                ${residents.map(resident => `<option value="${resident.id}" data-monthly_contrubtion="${resident.monthly_contrubtion}">${resident.user.first_name} ${resident.user.last_name}</option>`).join('')}
+            </select>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-md-6">
+        <div>
+            <label for="syndic-${counter}" class="form-label">Syndic</label>
+            <select data-choices class="form-select" id="syndic-${counter}" name="syndic[]">
+                <option value="">Select syndic</option>
+                ${syndics.map(syndic => `<option value="${syndic.id}">${syndic.user.first_name} ${syndic.user.last_name}</option>`).join('')}
+            </select>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-md-6">
+        <div>
+            <label for="price-${counter}" class="form-label">Price</label>
+            <input type="text" class="form-control" id="price-${counter}" name="price[]" value="{{ old('price') }}" placeholder="Price">
+        </div>
+    </div>
+    <div class="col-xxl-3 col-md-6">
+        <div>
+            <label for="date-${counter}" class="form-label">Date</label>
+            <input type="date" data-provider="flatpickr" data-date-format="y-m-d" class="form-control" id="date-${counter}" name="date[]" value="{{ old('date') }}" placeholder="Date">
+        </div>
+    </div>
+</div>`;
+
+        bulkWrapper.insertAdjacentHTML('beforeend', bulkForm);
+
+        initializePlugins(counter);
+    }
+
+    // Add initial form
+    addBulkForm(++bulkCounter);
+
+    // Bulk form button
+    const bulkBtn = document.getElementById('bulk-btn');
+    bulkBtn.addEventListener('click', (e) => {
+        addBulkForm(++bulkCounter);
+    });
+});
     </script>
 @endsection
