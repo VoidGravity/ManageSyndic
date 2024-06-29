@@ -2,23 +2,18 @@ import React, { useState } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Image, ImageBackground, Text, View } from "react-native";
 import DashboardScreen from "../screens/DashboardScreen";
-import SyndicScreen from "../screens/SyndicScreen";
-import BuildingScreen from "../screens/BuildingScreen";
-import ResidentScreen from "../screens/ResidentScreen";
 import ServicingScreen from "../screens/ServicingScreen";
 import ContibutionScreen from "../screens/ContibutionScreen";
 import { Link } from "@react-navigation/native";
-import { BiBuildingHouse, BiDoorOpen } from "react-icons/bi";
+import { BiDoorOpen } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
 import { GrUserWorker } from "react-icons/gr";
-import { FiUsers } from "react-icons/fi";
 import { FaHandsHelping, FaUsers } from "react-icons/fa";
 import Images from "@/constants/Images";
 import { Colors } from "@/constants/Colors";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import Header from "./Header";
-import ProfileScreen from "../screens/ProfileScreen";
 import ForgotPasswordScreen from "../screens/Auth/ForgotPasswordScreen";
 import ResetPasswordScreen from "../screens/Auth/ResetPasswordScreen";
 
@@ -35,7 +30,7 @@ const DrawerContent = ({ navigation }: any) => {
       source={Images.bodyBG}
       resizeMode="cover"
       style={styles.image}
-      imageStyle={{ opacity: .1 }}
+      imageStyle={{ opacity: 0.1 }}
     >
       <View
         style={{
@@ -108,18 +103,18 @@ const DrawerContent = ({ navigation }: any) => {
           <RiDashboardFill size={30} style={{ marginRight: 15 }} />
           Dashboard
         </Link>
-        <Link style={styles.link} to={"/Syndic"}>
+        {/* <Link style={styles.link} to={"/Syndic"}>
           <FiUsers size={30} style={{ marginRight: 15 }} />
           Syndic
-        </Link>
-        <Link style={styles.link} to={"/Building"}>
+        </Link> */}
+        {/* <Link style={styles.link} to={"/Building"}>
           <BiBuildingHouse size={30} style={{ marginRight: 15 }} />
           Building
-        </Link>
-        <Link style={styles.link} to={"/Resident"}>
+        </Link> */}
+        {/* <Link style={styles.link} to={"/Resident"}>
           <FaUsers size={30} style={{ marginRight: 15 }} />
           Resident
-        </Link>
+        </Link> */}
         <Link style={styles.link} to={"/Servicing"}>
           <GrUserWorker size={30} style={{ marginRight: 15 }} />
           Servicing
@@ -149,9 +144,10 @@ function DrawerNavigation() {
   });
   return (
     <Drawer.Navigator
-      initialRouteName="Dashboard"
+      initialRouteName="login"
       defaultStatus="closed"
       drawerContent={DrawerContent}
+      detachInactiveScreens={true}
       screenOptions={{
         headerShown: true,
         headerStyle: {
@@ -179,15 +175,15 @@ function DrawerNavigation() {
       }}
     >
       <Drawer.Screen name="Dashboard" component={DashboardScreen} />
-      <Drawer.Screen name="Syndic" component={SyndicScreen} />
-      <Drawer.Screen name="Building" component={BuildingScreen} />
-      <Drawer.Screen name="Resident" component={ResidentScreen} />
+      {/* <Drawer.Screen name="Syndic" component={SyndicScreen} /> */}
+      {/* <Drawer.Screen name="Building" component={BuildingScreen} /> */}
+      {/* <Drawer.Screen name="Resident" component={ResidentScreen} /> */}
       <Drawer.Screen name="Servicing" component={ServicingScreen} />
       <Drawer.Screen name="Contibution" component={ContibutionScreen} />
       <Drawer.Screen name="Login" component={LoginScreen} />
       <Drawer.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <Drawer.Screen name="ResetPassword" component={ResetPasswordScreen} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
+      {/* <Drawer.Screen name="Profile" component={ProfileScreen} /> */}
     </Drawer.Navigator>
   );
 }

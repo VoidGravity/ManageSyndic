@@ -1,14 +1,47 @@
 // DashboardScreen
-import React from "react";
-import { View, Text, StyleSheet, Button, ScrollView, ImageBackground } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
+import { Link } from "@react-navigation/native";
 import { Colors } from "@/constants/Colors";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Breadcrumb from "../components/Breadcrumb";
 import Images from "@/constants/Images";
+import env from "@/constants/env";
 
 const DashboardScreen = () => {
-  const navigation = useNavigation();
+  
+  const [contributions, setContributions] = React.useState([1, 2, 3]);
+  const [contributionsCount, setContributionsCount] = React.useState("0");
+  const [servicingsCount, setServicingsCount] = React.useState("0");
+  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user") || "{}"));
+
+
+  useEffect(() => {
+  console.log('user',user);
+    // fetch contributions
+    fetch(env.API_URL+"/dashboard", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization:
+          "Bearer 9|YgkdH7QXCnfbw5Xu9p0Ttey79EtqRVZIEQ9RuzMV0f35cf7e",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setContributionsCount(json.contributions);
+        setServicingsCount(json.servicings);
+        setContributions(json.LastContributions);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <ImageBackground
       source={Images.bodyBG}
@@ -19,39 +52,100 @@ const DashboardScreen = () => {
         height: "100%",
         overflow: "hidden",
       }}
-      imageStyle={{ opacity: .1 }}
+      imageStyle={{ opacity: 0.1 }}
     >
-    <ScrollView>
-    <View style={styles.container}>
-      {/* Breadcrumb */}
-      <Breadcrumb />
-      {/* Cards */}
-      <View style={styles.row}>
-        <View style={styles.col}>
-          <View style={styles.card}>
-            <Text style={styles.title}>Servicings</Text>
-            <View style={styles.cardContent}>
-              <Text style={styles.icon}>🔧</Text>
-              <Text style={styles.value}>2,659</Text>
-            </View>
+      <ScrollView>
+        <View style={styles.container}>
+          {/* Breadcrumb */}
+          <Breadcrumb
+            links={[
+              {
+                title: "Dashboard",
+              },
+            ]}
+          />
+          {/* Cards */}
+          <View style={styles.row}>
+            <Link to={"/Servicing"} style={styles.col}>
+              <View style={{ width: "100%" }}>
+                <View style={styles.card}>
+                  <Text style={styles.title}>Servicings</Text>
+                  <View style={styles.cardContent}>
+                    <Text style={styles.icon}>🔧</Text>
+                    <Text style={styles.value}>{servicingsCount}</Text>
+                  </View>
+                </View>
+              </View>
+            </Link>
+            <Link to={"/Contibution"} style={styles.col}>
+              <View style={{ width: "100%" }}>
+                <View style={styles.card}>
+                  <Text style={styles.title}>Contributions</Text>
+                  <View style={styles.cardContent}>
+                    <Text style={styles.icon}>💰</Text>
+                    <Text style={styles.value}>{contributionsCount}</Text>
+                  </View>
+                </View>
+              </View>
+            </Link>
           </View>
-        </View>
-        <View style={styles.col}>
-          <View style={styles.card}>
-            <Text style={styles.title}>Contributions</Text>
-            <View style={styles.cardContent}>
-              <Text style={styles.icon}>💰</Text>
-              <Text style={styles.value}>$1,596.5</Text>
+          {/* Title */}
+          <Text
+            style={{
+              color: Colors.bodyColor,
+              fontSize: 20,
+              fontWeight: "bold",
+              marginTop: 20,
+              width: "100%",
+              marginBottom: 20,
+            }}
+          >
+            My last Contributions
+          </Text>
+          {contributions.map((item:any, index) => (
+            <View
+              key={index}
+              style={{
+                width: "100%",
+                borderWidth: 1,
+                borderColor: Colors.borderColor,
+                padding: 10,
+                borderRadius: 10,
+                marginBottom: 20,
+              }}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  paddingBottom: 10,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", color: Colors.bodyColor }}>
+                  Price
+                </Text>
+                <Text style={{ color: Colors.bodyColor }}>{item.price}</Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  paddingBottom: 10,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", color: Colors.bodyColor }}>
+                  Date
+                </Text>
+                <Text style={{ color: Colors.bodyColor }}>{item.date}</Text>
+              </View>
             </View>
-          </View>
+          ))}
         </View>
-      </View>
-
-
-
-      
-    </View>
-    </ScrollView>
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -71,6 +165,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     width: "100%",
+  },
+  th: {
+    width: "auto",
   },
   col: {
     width: "48%",
@@ -97,15 +194,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 25,
-    padding:0,
-    margin:0,
+    padding: 0,
+    margin: 0,
   },
   value: {
     fontSize: 20,
     fontWeight: "bold",
     color: Colors.bodyColor,
   },
-
 });
 
 export default DashboardScreen;

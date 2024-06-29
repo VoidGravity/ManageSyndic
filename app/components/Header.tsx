@@ -21,15 +21,13 @@ const Header = ({ avatar, navigation }: any) => {
           </View>
           <View>
             {/* Logo */}
-            <Link to={'/Dashboard'}>
+            <Link to={"/Dashboard"}>
               <Image style={styles.logo} source={Images.Logo} />
             </Link>
           </View>
           <View>
             {/* User photo */}
-            <Link to="/Profile">
-              <Image style={styles.userPhoto} source={avatar} />
-            </Link>
+            <Image style={styles.userPhoto} source={avatar} />
           </View>
         </View>
       </View>

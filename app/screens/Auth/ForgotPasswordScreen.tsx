@@ -5,7 +5,6 @@ import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import { Link, useNavigation } from "@react-navigation/native";
 import TextInputField from "@/app/components/TextInputField";
 import ButtonField from "@/app/components/ButtonField";
-import CheckBoxInputField from "@/app/components/CheckBoxInputField";
 import { Colors } from "@/constants/Colors";
 import Images from "@/constants/Images";
 
