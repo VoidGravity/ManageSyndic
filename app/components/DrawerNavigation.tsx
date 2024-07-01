@@ -144,7 +144,7 @@ function DrawerNavigation() {
   });
   return (
     <Drawer.Navigator
-      initialRouteName="login"
+      initialRouteName="Login"
       defaultStatus="closed"
       drawerContent={DrawerContent}
       detachInactiveScreens={true}

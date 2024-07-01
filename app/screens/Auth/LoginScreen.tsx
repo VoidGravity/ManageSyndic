@@ -1,6 +1,4 @@
 // login screen
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import { Link, useNavigation } from "@react-navigation/native";
@@ -9,6 +7,7 @@ import ButtonField from "@/app/components/ButtonField";
 import CheckBoxInputField from "@/app/components/CheckBoxInputField";
 import { Colors } from "@/constants/Colors";
 import Images from "@/constants/Images";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import env from "@/constants/env";
 
 const LoginScreen = () => {

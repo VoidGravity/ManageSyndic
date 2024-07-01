@@ -12,34 +12,36 @@ import { Colors } from "@/constants/Colors";
 import Breadcrumb from "../components/Breadcrumb";
 import Images from "@/constants/Images";
 import env from "@/constants/env";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DashboardScreen = () => {
-  
   const [contributions, setContributions] = React.useState([1, 2, 3]);
   const [contributionsCount, setContributionsCount] = React.useState("0");
   const [servicingsCount, setServicingsCount] = React.useState("0");
-  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user") || "{}"));
-
+  const [user, setUser] = React.useState({});
 
   useEffect(() => {
-  console.log('user',user);
-    // fetch contributions
-    fetch(env.API_URL+"/dashboard", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization:
-          "Bearer 9|YgkdH7QXCnfbw5Xu9p0Ttey79EtqRVZIEQ9RuzMV0f35cf7e",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        setContributionsCount(json.contributions);
-        setServicingsCount(json.servicings);
-        setContributions(json.LastContributions);
+    async function fetchData() {
+      const token = await AsyncStorage.getItem("token");
+      // fetch contributions
+      fetch(env.API_URL + "/dashboard", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization:
+            "Bearer "+token,
+        },
       })
-      .catch((error) => console.error(error));
+        .then((response) => response.json())
+        .then((json) => {
+          setContributionsCount(json.contributions);
+          setServicingsCount(json.servicings);
+          setContributions(json.LastContributions);
+        })
+        .catch((error) => console.error(error));
+    }
+    fetchData();
   }, []);
 
   return (
@@ -102,7 +104,7 @@ const DashboardScreen = () => {
           >
             My last Contributions
           </Text>
-          {contributions.map((item:any, index) => (
+          {contributions.map((item: any, index) => (
             <View
               key={index}
               style={{

@@ -11,28 +11,32 @@ import { Colors } from "@/constants/Colors";
 import Breadcrumb from "../components/Breadcrumb";
 import Images from "@/constants/Images";
 import env from "@/constants/env";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const ServicingScreen = () => {
   const navigation = useNavigation();
-  // 
   const [servicing, setServicing] = React.useState([]);
 
   useEffect(() => {
-    // fetch contributions
-    fetch(env.API_URL+"/dashboard/servicing", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization:
-          "Bearer 2|440xV7eFBIuauyJtDCPqZm4FgwJVYTgM8wFX2AtF6ad1832f",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        setServicing(json);
+    async function fetchData() {
+      const token = await AsyncStorage.getItem("token");
+      fetch(env.API_URL+"/dashboard/servicing", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization:
+            "Bearer "+token,
+        },
       })
-      .catch((error) => console.error(error));
+        .then((response) => response.json())
+        .then((json) => {
+          setServicing(json);
+        })
+        .catch((error) => console.error(error));
+    }
+    fetchData();
   }, []);
   return (
     <ImageBackground
