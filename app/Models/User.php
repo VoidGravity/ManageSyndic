@@ -73,4 +73,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Syndic::class);
     }
+
+    /**
+     * Get the resident record associated with the user.
+     */
+
+    public function resident()
+    {
+        return $this->hasOne(Resident::class);
+    }
 }
