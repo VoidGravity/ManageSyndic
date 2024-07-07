@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ServicingScreen = () => {
   const navigation = useNavigation();
+
   const [servicing, setServicing] = React.useState([]);
 
   useEffect(() => {
@@ -26,8 +27,7 @@ const ServicingScreen = () => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization:
-            "Bearer "+token,
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => response.json())
@@ -63,7 +63,7 @@ const ServicingScreen = () => {
             },
           ]} />
           {/* Cards */}
-          {servicing.map((item:any, index) => (
+          {servicing && servicing?.length && servicing.map((item:any, index) => (
             <View key={index} style={{width: "100%",borderWidth: 1,borderColor: Colors.borderColor,padding: 10,borderRadius: 10,marginBottom: 20,}}>
               <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",paddingBottom: 10,}}>
                 <Text style={{fontWeight: "bold", color: Colors.bodyColor}}>Type</Text>

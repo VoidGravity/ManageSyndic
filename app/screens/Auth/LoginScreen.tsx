@@ -40,9 +40,12 @@ const LoginScreen = () => {
           setError(json.ERROR);
           return;
         }
-        await AsyncStorage.setItem("user", JSON.stringify(json.user));
-        await AsyncStorage.setItem("token", JSON.stringify(json.token));
-        navigation.navigate("Dashboard" as never);
+        if(json.token){
+          await AsyncStorage.setItem("user", JSON.stringify(json.user));
+          await AsyncStorage.setItem("token", json.token);
+          console.log('json.token',json.token);
+          navigation.navigate("Dashboard" as never);
+        }
       })
       .catch((error) => console.error(error));
   };
@@ -98,7 +101,7 @@ const LoginScreen = () => {
           }}
           to="/ForgotPassword"
         >
-          <Text>Forgot Password?</Text>
+          Forgot Password?
         </Link>
         <ButtonField name="Login" onClick={handleLogin} />
 

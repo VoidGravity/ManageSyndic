@@ -23,14 +23,14 @@ const DashboardScreen = () => {
   useEffect(() => {
     async function fetchData() {
       const token = await AsyncStorage.getItem("token");
+      console.log('token',token);
       // fetch contributions
       fetch(env.API_URL + "/dashboard", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization:
-            "Bearer "+token,
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => response.json())
