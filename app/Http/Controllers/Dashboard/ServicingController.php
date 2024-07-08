@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\ResidentialBuilding;
 use App\Models\Servicing;
+use App\Models\Syndic;
 use Illuminate\Http\Request;
 
 class ServicingController extends Controller
@@ -15,28 +16,44 @@ class ServicingController extends Controller
         // buildings
         // checking the auth user role 
         $role = auth()->user()->role;
-        $building = ResidentialBuilding::where('syndic_id',auth()->user()->id)->first();
         // if building exist 
-        if ($building) {
-        $building_id = $building->id;
-        } else {
-            $building_id = 0;
-        }
         if ($role == 'ADMIN') {
-
-        $servicings = Servicing::with('Building')->get(); 
-        // find resedential building id with same cyndik id
-    }else{
+            
+            $servicings = Servicing::with('Building')->get(); 
+            // find resedential building id with same cyndik id
+        }elseif($role == 'SYNDIC'){
             // only bring the building that has sam ecyndic id 
+            $syndic = Syndic::where('user_id',auth()->user()->id)->first();
+            $building = ResidentialBuilding::where('syndic_id',$syndic->id)->first();
+            if ($building) {
+            $building_id = $building->id;
+            } else {
+                $building_id = 0;
+            }
+            $servicings = Servicing::with('Building')->where('residential_buildings_id',$building_id)->get();
+            
+        }else{
+            // resident where id is the same as loged in , bring resident building id
+            $building_id = auth()->user()->resident->residential_buildings_id;
+            
             $servicings = Servicing::with('Building')->where('residential_buildings_id',$building_id)->get();
 
-        }       
+        }   
         return view('dashboard.servicing.all', compact('servicings'));
     }
     // create
     public function create()
     {
-        $buildings = ResidentialBuilding::all();
+        if (auth()->user()->role == 'ADMIN') {
+            $buildings = ResidentialBuilding::all();
+        }else{
+            $syndic = Syndic::where('user_id',auth()->user()->id)->first();
+            $building = ResidentialBuilding::where('syndic_id',$syndic->id)->first();
+            if (!$building) {
+                return redirect()->route('dashboard.servicing.all')->with('error','You have no building');  
+            }
+            $buildings = ResidentialBuilding::where('id',$building->id)->get();
+        }
         return view('dashboard.servicing.create', compact('buildings'));
     }
     // save
@@ -70,13 +87,14 @@ class ServicingController extends Controller
     // edit
     public function edit(Request $request,Servicing $servicing)
     {
-        $buildings = ResidentialBuilding::all();
-        // role 
-        $role = auth()->user()->role;
-        if ($role == 'ADMIN') {
+        if (auth()->user()->role == 'ADMIN') {
             $buildings = ResidentialBuilding::all();
         }else{
-            $building = ResidentialBuilding::where('syndic_id',auth()->user()->id)->first();
+            $syndic = Syndic::where('user_id',auth()->user()->id)->first();
+            $building = ResidentialBuilding::where('syndic_id',$syndic->id)->first();
+            if (!$building) {
+                return redirect()->route('dashboard.servicing.all')->with('error','You have no building');  
+            }
             $buildings = ResidentialBuilding::where('id',$building->id)->get();
         }
 
